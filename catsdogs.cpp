@@ -25,6 +25,7 @@ int main()
     return 0;
 }
 int brDogs=0,brCats=0;
+int maxCat=0;
 void Input()
 {
 
@@ -48,11 +49,10 @@ void Input()
                 inCat>>T[i][j];
                 if(T[i][j]>='1' && T[i][j]<='9' )
                 {
-                    if(brDogs<K-1){
                     w[brDogs].x=i;
                     w[brDogs].y=j;
                     w[brDogs].Front=k;
-                    brDogs++;}
+                    brDogs++;
                     
                     brCats++;
                 }
@@ -72,20 +72,27 @@ void Output()
 {
     ofstream outCat;
     outCat.open("catsdogs.out");
-    if(K<=brCats)
-    for(int i=0;i<K;i++)
+    int brOutDogs=0;
+    int l=min(K,brDogs);
+    for(int i=0;i<l;i++)
     {
+        
+        if(w[i].Front<1 || w[i].Front>F)break;
         outCat<<w[i].Front<<endl;
         outCat<<w[i].x<<" "<<w[i].y<<endl;
         outCat<<"STAY"<<endl;
+        brOutDogs++;
+
     }
-    else
+    if(brOutDogs<K)
     {
-        for(int i=0;i<brCats;i++)
-        {
-        outCat<<w[i].Front<<endl;
-        outCat<<w[i].x<<" "<<w[i].y<<endl;
+        for(int i=1;i<=N,brOutDogs<K;i++)
+        for(int j=1;j<=M,brOutDogs<K;j++){
+        if(T[i][j]!='#')
+        outCat<<F<<endl;
+        outCat<<i<<" "<<j<<endl;
         outCat<<"STAY"<<endl;
+        brOutDogs++;
         }
     }
     outCat.close();
